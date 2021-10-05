@@ -1,14 +1,27 @@
 #Import libraries
+import pathlib
+import csv
 
 #Read in the data
+csv = pathlib.Path("Resources", "budget_data.csv")
 
 #Empty lists to populate
+months = []
+profit_losses = []
+
+PL_change = []
 
 #Read CSV
+with open(csvpath) as csvfile:
+    csvreader = csv.reader(csvfile, delimiter=",")
+    for row in csvreader:
 
+        months.append(row[0])
+        profit_loses.append(int(row[1]))
 
-
+        
 #Calculate the total number of months
+
 
 #Calc the total net profit/loss
 
