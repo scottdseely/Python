@@ -24,6 +24,14 @@ with open(csvpath) as csvfile:
 total_months = len(months)
 
 #Calc the total net profit/loss
+total_months = len(months)
+total_amount = sum(profit_losses)
+
+
+PL_tosubtract =  zip(profit_losses[0:], profit_losses[1:])
+PL_change = [(j-i) for i,j in PL_tosubtract]
+
+
 
 
 #changes in P&L for each month
