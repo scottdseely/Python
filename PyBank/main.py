@@ -27,21 +27,17 @@ total_months = len(months)
 total_months = len(months)
 total_amount = sum(profit_losses)
 
-
 PL_tosubtract =  zip(profit_losses[0:], profit_losses[1:])
+#changes in P&L for each month
 PL_change = [(j-i) for i,j in PL_tosubtract]
 
-
-
-
-#changes in P&L for each month
-
 #Calc the avg change in P&L
+Aberage = mean(PL_change)
 
 #Converted list to dictionary to use in analysis
 
 
 #Calc largest increase/decrease in P&L
 
-#Summary
+#Summary Analysis
 
