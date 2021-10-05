@@ -21,7 +21,7 @@ with open(csvpath) as csvfile:
 
         
 #Calculate the total number of months
-
+total_months = len(months)
 
 #Calc the total net profit/loss
 
