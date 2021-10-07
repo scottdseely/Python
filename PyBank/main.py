@@ -1,68 +1,51 @@
-#Import libraries
+#import libraries
 import pathlib
-
 import csv
-from statistics import mean, median, mode
+from statistics import mean
 
+#Set path to budget_data
+csvpath = pathlib.Path("Resources", "budget_data.csv")
 
-#Read in the data
-csv = pathlib.Path("Resources", "budget_data.csv")
-
-#Empty lists to populate
+#Empty lists 
 months = []
 profit_losses = []
-
 PL_change = []
 
-#Read CSV
+#Read csv
 with open(csvpath) as csvfile:
     csvreader = csv.reader(csvfile, delimiter=",")
+    
+     # Read the header row - skip for datasets without header 
+    csvheader = next(csvreader)
+
+     # Read each row 
     for row in csvreader:
-
-        months.append(row[0])
-        profit_loses.append(int(row[1]))
-
         
-#Calculate the total number of months
+        months.append(row[0])
+        profit_losses.append(int(row[1]))
+
+#Total months
 total_months = len(months)
 
-#Calc the total net profit/loss
-total_months = len(months)
+#Total P/L
 total_amount = sum(profit_losses)
 
+#Set corresponding elements that will be aggregated to produce P&L change 
 PL_tosubtract =  zip(profit_losses[0:], profit_losses[1:])
-#changes in P&L for each month
+
+#List comprehension that will produce the changes in P&L for each month
 PL_change = [(j-i) for i,j in PL_tosubtract]
 
-#Calc the avg change in P&L
+#Average change in P/L
 Average = mean(PL_change)
 
-#Converted list to dictionary to use in analysis
+#Convert list to dictionary to use in the summary
+#Used months (starting at index 1) as key and the corresponding change in P/L as the value
 months_PLchg = dict(zip(months[1:], PL_change))
 
-#Calc  min and max in P&L
-lowest_profit = min(months_PLchg.keys(), key=(lambda k: months_PLchg[k]))
+#Calculates greatest increase/decrease in P/L
 highest_profit = max(months_PLchg.keys(), key=(lambda k: months_PLchg[k]))
-
-
-#Summary
-#Export script text to file with the results
-budget_summary = pathlib.Path('PyBank_output = pathlib.Path("Analysis/PyBank_Analysis.txt")')
-
-#Formatting summary table for number of months, total funds, average change, greatest profit, and least profit in terminaal and text file
-with open(budget_summary,'w') as resultsfile:
-        csvwriter = csv.writer(resultsfile)
-        budget_summary = (
-        f"\n\nFinancial Analysis\n"
-        f"-----------------------------\n"
-        f"Total Months: {months}\n"
-        f"Total: ${format(total_funds,',d')}\n"
-        f"Average Change: ${average} \n"
-        f"Greatest Increase in Profits: {greatestprofit_monthyear} (${format(greatest_profit,',d')})\n"
-        f"Greatest Decrease in Profits: {greatestloss_monthyear} (${format(greatest_loss,',d')})\n")
-        print(budget_summary)
-        resultsfile.write(budget_summary)
-
+lowest_profit = min(months_PLchg.keys(), key=(lambda k: months_PLchg[k]))
 
 #Summary
 print("Financial Analysis")
@@ -73,16 +56,19 @@ print(f"Average Change in Profit/Losses: ${Average:.2f}")
 print(f"Greatest Increase in Profits: {highest_profit}, ({months_PLchg[highest_profit]})")
 print(f"Greatest Decrease in Profits: {lowest_profit}, ({months_PLchg[lowest_profit]})")
 
-# Establish the file and path 
+# write to file and print to terminal
 PyBank_output = pathlib.Path("Analysis/PyBank_Analysis.csv")
 
+# Open the file using "write" mode. Specify the variable to hold the contents
 with open(file=PyBank_output, mode='w') as csvfile:
 
     # Initialize csv.writer
     csvwriter = csv.writer(csvfile, delimiter=',')
 
-    # Write the first row (column headers)
+    # Write headers
     csvwriter.writerow(['Total Months', 'Total Net P&L', 'Average Change in P&L', 'Month/Yr with Greatest Increase in Profit', 'Amount of Greatest Increase',
     'Month/Yr with Greatest Decrease in Profit', 'Amount of Greatest Decrease'])
-
+      
+    # Write results
     csvwriter.writerow([total_months, total_amount, Average, highest_profit, months_PLchg[highest_profit], lowest_profit, months_PLchg[lowest_profit]])
+
