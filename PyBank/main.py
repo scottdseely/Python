@@ -53,9 +53,9 @@ print("Financial Analysis")
 print("-------------------")
 print(f'Total Months: {total_months}') 
 print(f"Total Net Profit/Losses:  ${total_amount}") 
-print(f"Average Change in Profit/Losses: ${Average:.2f}")  
+termcolor.cprint(f"Average Change in Profit/Losses: ${Average:.2f}", 'red')  
 print(f"Greatest Increase in Profits: {highest_profit}, ({months_PLchg[highest_profit]})")
-print(f"Greatest Decrease in Profits: {lowest_profit}, ({months_PLchg[lowest_profit]})")
+termcolor.cprint(f"Greatest Decrease in Profits: {lowest_profit}, ({months_PLchg[lowest_profit]})", 'red')
 
 # write to file and print to terminal
 PyBank_output = pathlib.Path("Analysis/PyBank_Analysis.csv")
