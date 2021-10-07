@@ -1,6 +1,7 @@
 #import libraries
 import pathlib
 import csv
+from termcolor import colored
 from statistics import mean
 
 #Set path to budget_data
