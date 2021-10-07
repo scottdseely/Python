@@ -49,7 +49,7 @@ highest_profit = max(months_PLchg.keys(), key=(lambda k: months_PLchg[k]))
 lowest_profit = min(months_PLchg.keys(), key=(lambda k: months_PLchg[k]))
 
 #Summary
-print("Financial Analysis")
+("Financial Analysis")
 print("-------------------")
 print(f'Total Months: {total_months}') 
 print(f"Total Net Profit/Losses:  ${total_amount}") 
