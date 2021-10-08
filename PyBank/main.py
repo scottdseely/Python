@@ -4,6 +4,9 @@ import csv
 from termcolor import colored
 from statistics import mean
 
+header_line=f"    Financial Analysis of Bank Transactions"
+dash_line=f"--------------------------------------------------"
+
 #Set path to budget_data
 csvpath = pathlib.Path("Resources", "budget_data.csv")
 
@@ -48,8 +51,8 @@ months_PLchg = dict(zip(months[1:], PL_change))
 highest_profit = max(months_PLchg.keys(), key=(lambda k: months_PLchg[k]))
 lowest_profit = min(months_PLchg.keys(), key=(lambda k: months_PLchg[k]))
 
-#Summary
-("Financial Analysis")
+#Summary to terminal
+print("Financial Analysis")
 print("-------------------")
 print(f'Total Months: {total_months}') 
 print(f"Total Net Profit/Losses:  ${total_amount}") 
@@ -57,11 +60,24 @@ termcolor.cprint(f"Average Change in Profit/Losses: ${Average:.2f}", 'red')
 print(f"Greatest Increase in Profits: {highest_profit}, ({months_PLchg[highest_profit]})")
 termcolor.cprint(f"Greatest Decrease in Profits: {lowest_profit}, ({months_PLchg[lowest_profit]})", 'red')
 
-# write to file and print to terminal
-PyBank_output = pathlib.Path("Analysis/PyBank_Analysis.csv")
+#write to .txt
+PyBank_output_txt = pathlib.Path("Analysis/Fin_Analysis5.txt")
+output = "Fin_Analysis5.txt"
+with open(PyBank_output_txt, 'w') as textfile:
+    textfile.write(str("Financial Analysis"))
+    textfile.write(str("-------------------"))
+    textfile.write(str(f'Total Months: {total_months}')) 
+    textfile.write(str(f"Total Net Profit/Losses:  ${total_amount}")) 
+    textfile.write(str(f"Average Change in Profit/Losses: ${Average:.2f}", 'red'))
+    textfile.write(str(f"Greatest Increase in Profits: {highest_profit}, ({months_PLchg[highest_profit]})"))
+    textfile.write(str(f"Greatest Decrease in Profits: {lowest_profit}, ({months_PLchg[lowest_profit]})", 'red'))
 
-# Open the file using "write" mode. Specify the variable to hold the contents
-with open(file=PyBank_output, mode='w') as csvfile:
+
+# write to csv
+PyBank_output_csv = pathlib.Path("Analysis/Fin_Analysis.csv")
+
+# Open the file using write(w)) mode. 
+with open(file=PyBank_output_csv, mode='w') as csvfile:
 
     # Initialize csv.writer
     csvwriter = csv.writer(csvfile, delimiter=',')
