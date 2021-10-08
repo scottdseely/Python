@@ -1,8 +1,11 @@
 #import libraries
 import pathlib
 import csv
-from termcolor import colored
+import numpy as np
+from termcolor import ATTRIBUTES, colored
 from statistics import mean
+
+import termcolor
 
 header_line=f"    Financial Analysis of Bank Transactions"
 dash_line=f"--------------------------------------------------"
@@ -60,32 +63,27 @@ termcolor.cprint(f"Average Change in Profit/Losses: ${Average:.2f}", 'red')
 print(f"Greatest Increase in Profits: {highest_profit}, ({months_PLchg[highest_profit]})")
 termcolor.cprint(f"Greatest Decrease in Profits: {lowest_profit}, ({months_PLchg[lowest_profit]})", 'red')
 
-#write to .txt
-PyBank_output_txt = pathlib.Path("Analysis/Fin_Analysis5.txt")
-output = "Fin_Analysis5.txt"
-with open(PyBank_output_txt, 'w') as textfile:
-    textfile.write(str("Financial Analysis"))
-    textfile.write(str("-------------------"))
-    textfile.write(str(f'Total Months: {total_months}')) 
-    textfile.write(str(f"Total Net Profit/Losses:  ${total_amount}")) 
-    textfile.write(str(f"Average Change in Profit/Losses: ${Average:.2f}", 'red'))
-    textfile.write(str(f"Greatest Increase in Profits: {highest_profit}, ({months_PLchg[highest_profit]})"))
-    textfile.write(str(f"Greatest Decrease in Profits: {lowest_profit}, ({months_PLchg[lowest_profit]})", 'red'))
+#Summary to text
+print("Financial Analysis", file=open("Analysis/Fin_AnalysisTXT.txt","a"))
+print("-------------------", file=open("Analysis/Fin_AnalysisTXT.txt","a"))
+print(f'Total Months: {total_months}', file=open("Analysis/Fin_AnalysisTXT.txt","a")) 
+print(f"Total Net Profit/Losses:  ${total_amount}", file=open("Analysis/Fin_AnalysisTXT.txt","a")) 
+termcolor.cprint(f"Average Change in Profit/Losses: ${Average:.2f}", 'red', file=open("Analysis/Fin_AnalysisTXT.txt","a"))  
+print(f"Greatest Increase in Profits: {highest_profit}, ({months_PLchg[highest_profit]})", file=open("Analysis/Fin_AnalysisTXT.txt","a"))
+termcolor.cprint(f"Greatest Decrease in Profits: {lowest_profit}, ({months_PLchg[lowest_profit]})", 'red', file=open("Analysis/Fin_AnalysisTXT.txt","a"))
 
+#  Summary to csv
+PyBank_output_csv = pathlib.Path("Analysis/Fin_AnalysisCSV.csv")
 
-# write to csv
-PyBank_output_csv = pathlib.Path("Analysis/Fin_Analysis.csv")
-
-# Open the file using write(w)) mode. 
+# Open file
 with open(file=PyBank_output_csv, mode='w') as csvfile:
 
     # Initialize csv.writer
     csvwriter = csv.writer(csvfile, delimiter=',')
 
-    # Write headers
+    # Write column headers 
     csvwriter.writerow(['Total Months', 'Total Net P&L', 'Average Change in P&L', 'Month/Yr with Greatest Increase in Profit', 'Amount of Greatest Increase',
     'Month/Yr with Greatest Decrease in Profit', 'Amount of Greatest Decrease'])
       
     # Write results
     csvwriter.writerow([total_months, total_amount, Average, highest_profit, months_PLchg[highest_profit], lowest_profit, months_PLchg[lowest_profit]])
-
