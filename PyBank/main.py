@@ -1,5 +1,12 @@
 """
-Scott Seely = Data Analytics Bootcamp
+Scott Seely = While(year==2021)
+{
+    quarentine();
+    mask();
+    //fun();
+    zoom();
+    
+}
 
 """
 
