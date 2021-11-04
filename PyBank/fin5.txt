@@ -1,7 +1,5 @@
 Financial Analysis
 -------------------
-Financial Analysis
--------------------
 Total Months: 86
 Total Net Profit/Losses:  $38382578
 Average Change in Profit/Losses: $-2315.12
